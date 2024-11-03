@@ -3,6 +3,13 @@ import { motion } from 'framer-motion';
 import CV from './../../assets/CV/CV.pdf';
 
 export default function Hero() {
+  const scrollToProjects = () => {
+    const section = document.getElementById('projets');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section id="accueil" className="h-screen flex items-center justify-center text-center">
       <motion.div
@@ -15,6 +22,7 @@ export default function Hero() {
         
         <div className="flex space-x-4 justify-center">
           <motion.button
+            onClick={scrollToProjects} // Ajout de l'action de scroll
             className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

@@ -1,46 +1,54 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import CV from './../../assets/CV/CV.pdf';
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 
-export default function Hero() {
-  const scrollToProjects = () => {
-    const section = document.getElementById('projets');
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+export default function Header() {
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <section id="accueil" className="h-screen flex items-center justify-center text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h1 className="text-5xl md:text-7xl font-bold mb-4">Bonjour, je suis <span className="text-orange-300">Olivier Bazou MENIN</span></h1>
-        <p className="text-xl md:text-2xl mb-8">Développeur Web Full Stack</p>
-        
-        <div className="flex space-x-4 justify-center">
-          <motion.button
-            onClick={scrollToProjects}
-            className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Voir mes projets
-          </motion.button>
-          
-          <motion.a
-            href={CV}
-            download
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Télécharger mon CV
-          </motion.a>
+    <header className="fixed w-full bg-blue-900 bg-opacity-90 z-50">
+      <nav className="container mx-auto px-6 py-3 flex justify-between items-center">
+        <motion.div
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <a href="#" className="text-2xl font-bold">Olivier Bazou MENIN</a>
+        </motion.div>
+        <div className="hidden md:flex space-x-4">
+          {['Accueil', 'À propos', 'Projets', 'Compétences', 'Contact'].map((item, index) => (
+            <motion.a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="hover:text-orange-300 transition-colors"
+              initial={{ y: -50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              {item}
+            </motion.a>
+          ))}
         </div>
-      </motion.div>
-    </section>
-  );
+        <div className="md:hidden">
+          <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </nav>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.3 }}
+          className="md:hidden bg-blue-800 py-2"
+        >
+          {['Accueil', 'À propos', 'Projets', 'Compétences', 'Contact'].map((item) => (
+            <a key={item} href={`#${item.toLowerCase()}`} className="block px-4 py-2 hover:bg-blue-700">{item}</a>
+          ))}
+        </motion.div>
+      )}
+    </header>
+  )
 }
