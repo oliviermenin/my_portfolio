@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import IMG_0257 from '../../images/IMG_0257.JPG'; // Chemin relatif vers l'image
+import IMG_0357 from '../../assets/images/IMG_0357.jpg';
 
 export default function About() {
   return (
@@ -21,8 +21,12 @@ export default function About() {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <div className="md:w-1/2 mb-8 md:mb-0">
-            {/* Taille d'image agrandie */}
-            <img src={IMG_0257} alt="Votre photo" className="w-[450px] h-[450px] rounded-full mx-auto" />
+            {/* Taille d'image ajustée en fonction de la taille de l'écran */}
+            <img 
+              src={IMG_0357} 
+              alt="Votre photo" 
+              className="w-[200px] h-[300px] sm:w-[300px] sm:h-[400px] md:w-[300px] md:h-[600px] lg:w-[600px] lg:h-[800px] rounded-full mx-auto" 
+            />
           </div>
           <div className="md:w-1/2">
             <p className="text-lg mb-4">

@@ -1,11 +1,20 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import IRC from '../../assets/images/projectsPictures/irc.png';
+import Puissance4 from '../../assets/images/projectsPictures/Puissance4.png';
+import FlappyFlop from '../../assets/images/projectsPictures/FlappyFlop.jpeg';
+import Morpion from '../../assets/images/projectsPictures/Morpion.png';
+import MyVarDump from '../../assets/images/projectsPictures/MyVarDump.png';
+import CombDisplay from '../../assets/images/projectsPictures/CombDisplay.png';
 
 const projects = [
-  { title: 'Projet 1', description: 'Description du projet 1', image: '/placeholder.svg?height=200&width=300' },
-  { title: 'Projet 2', description: 'Description du projet 2', image: '/placeholder.svg?height=200&width=300' },
-  { title: 'Projet 3', description: 'Description du projet 3', image: '/placeholder.svg?height=200&width=300' },
-]
+  { title: 'My Internet Relay Chat', description: 'Chat instantanée réalisé avec Express.js, Socket.io et React.js', image: IRC },
+  { title: 'Puissance 4', description: 'Jeu du puissance 4', image: Puissance4 },
+  { title: 'Flappy Flop', description: 'Remake du jeu Flappy Bird', image: FlappyFlop },
+  { title: 'Morpion', description: 'Jeu du morpion', image: Morpion },
+  { title: 'MyVarDump', description: 'Fonction vardump recréée en PHP pour afficher les types et valeurs des variables.', image: MyVarDump },
+  { title: 'CombDisplay', description: 'Fonction en C qui affiche toutes les combinaisons possibles de trois chiffres différents, en évitant les répétitions', image: CombDisplay },
+];
 
 export default function Projects() {
   return (
