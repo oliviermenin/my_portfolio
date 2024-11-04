@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
+const Database_URL = process.env.REACT_APP_DATABASE_URL;
+
 const Comments = () => {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
@@ -9,7 +11,7 @@ const Comments = () => {
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/comments');
+      const response = await axios.get(`${Database_URL}/comments`);
       setComments(response.data.reverse());
     } catch (error) {
       console.error('Erreur lors de la récupération des commentaires:', error);
@@ -25,7 +27,7 @@ const Comments = () => {
     if (!name || !message) return;
 
     try {
-      const response = await axios.post('http://localhost:4000/comments', { name, message });
+      const response = await axios.post(`${Database_URL}/comments`, { name, message });
 
       const newComment = {
         ...response.data.comment,
@@ -46,8 +48,7 @@ const Comments = () => {
           Commentaires
         </h2>
 
-        {/* Formulaire pour ajouter un commentaire */}
-        <form onSubmit={handleSubmit} className="mb-8 max-w-md mx-auto bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md"> {/* Ajout de max-w-md pour limiter la largeur */}
+        <form onSubmit={handleSubmit} className="mb-8 max-w-md mx-auto bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
           <input
             type="text"
             placeholder="Votre nom"
@@ -73,7 +74,6 @@ const Comments = () => {
           </motion.button>
         </form>
 
-        {/* Affichage des commentaires */}
         <div className="max-w-lg mx-auto space-y-4">
           {comments.map((comment) => (
             <div key={comment._id} className="bg-gray-100 dark:bg-gray-900 p-4 rounded shadow-sm">
