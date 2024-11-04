@@ -4,14 +4,20 @@ const { connect } = require('mongoose');
 const commentRoutes = require('./routes/commentRoutes');
 const cors = require('cors');
 
-
-
 const app = express();
 const port = process.env.PORT || 4000;
 const uri = process.env.MONGO_URI;
 
+const allowedOrigins = ['https://my-portfolio-k0na.onrender.com'];
+
 app.use(cors({
-  origin: 'https://my-portfolio-k0na.onrender.com/',
+  origin: function (origin, callback) {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST'],
   credentials: true
 }));
@@ -21,7 +27,6 @@ connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(error => console.error('Erreur de connexion à MongoDB:', error));
 
 app.use(express.json());
-
 app.use(commentRoutes);
 
 app.listen(port, () => {
