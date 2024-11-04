@@ -8,11 +8,15 @@ const app = express();
 const port = process.env.PORT || 4000;
 const uri = process.env.MONGO_URI;
 
-const allowedOrigins = ['https://my-portfolio-k0na.onrender.com'];
+const allowedOrigins = [
+  'https://my-portfolio-ew2y.onrender.com',
+  'https://my-portfolio-k0na.onrender.com',
+  'http://localhost:3000'
+];
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (allowedOrigins.includes(origin) || !origin) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
