@@ -10,11 +10,11 @@ const app = express();
 const port = process.env.PORT || 4000;
 const uri = process.env.MONGO_URI;
 
-// app.use(cors({
-//   origin: 'http://localhost:3000',
-//   methods: ['GET', 'POST'],
-//   credentials: true
-// }));
+app.use(cors({
+  origin: 'https://my-portfolio-k0na.onrender.com/',
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
 
 connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connecté à MongoDB'))
