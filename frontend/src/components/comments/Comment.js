@@ -8,13 +8,21 @@ const Comments = () => {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
   const [comments, setComments] = useState([]);
+  const [error, setError] = useState(null);
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`${Database_URL}/comments`);
+      const response = await axios.get(`${Database_URL}/comments`, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
       setComments(response.data.reverse());
+      setError(null);
     } catch (error) {
       console.error('Erreur lors de la récupération des commentaires:', error);
+      setError("Impossible de charger les commentaires. Veuillez réessayer plus tard.");
     }
   };
 
@@ -27,7 +35,15 @@ const Comments = () => {
     if (!name || !message) return;
 
     try {
-      const response = await axios.post(`${Database_URL}/comments`, { name, message });
+      const response = await axios.post(`${Database_URL}/comments`, 
+        { name, message },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }
+      );
 
       const newComment = {
         ...response.data.comment,
@@ -36,8 +52,10 @@ const Comments = () => {
       setComments([newComment, ...comments]);
       setName('');
       setMessage('');
+      setError(null);
     } catch (error) {
       console.error("Erreur lors de l'ajout du commentaire:", error);
+      setError("Impossible d'ajouter le commentaire. Veuillez réessayer plus tard.");
     }
   };
 
@@ -47,6 +65,12 @@ const Comments = () => {
         <h2 className="text-3xl font-bold mb-8 text-center">
           Commentaires
         </h2>
+
+        {error && (
+          <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-md">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="mb-8 max-w-md mx-auto bg-gray-50 dark:bg-gray-800 p-6 rounded-lg shadow-md">
           <input
